@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For You ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            touch-action: manipulation; /* Prevents zooming on fast taps */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; /* Prevents scrolling when the button moves */
+        }
+
+        #container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 1.8rem;
+            line-height: 1.4;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column; /* Stacked for better thumb reach */
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            width: 200px;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s active;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: fixed; /* Fixed allows it to jump anywhere on the screen */
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.1s ease;
+        }
+
+        #celebration {
+            display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .heart {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="main-content">
+            <h1>WILL YOU BE MY GIRLFRIEND?</h1>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="showCelebration()">YES! ❤️</button>
+                <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="celebration">
+            <div class="heart">💖</div>
+            <h1>YEAAAAHHHHHHHHHH!</h1>
+            <p>I knew you'd say yes! 🥳🎉</p>
+        </div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            
+            // Calculate random area, leaving a 50px margin from edges
+            const padding = 50;
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            
+            const randomX = Math.floor(Math.random() * maxX) + (padding / 2);
+            const randomY = Math.floor(Math.random() * maxY) + (padding / 2);
+            
+            // Apply new position
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transform = 'none'; // Remove the initial centering
+        }
+
+        function showCelebration() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('noBtn').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            document.body.style.backgroundColor = '#ffb3c1';
+        }
+    </script>
+</body>
+</html>
